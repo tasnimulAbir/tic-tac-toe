@@ -6,6 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Two-player local Tic Tac Toe in plain HTML, CSS, and JavaScript. No build step, package manager, dependencies, linter, or tests.
 
+## Project memory
+
+Before starting work, read `~/Desktop/Builder/BRAIN/tic-tac-toe/STATUS.md` (current state, next action) and `decisions.md` (settled choices and why). Run `/brain-end` when a session wraps up.
+
 ## Running
 
 Open `index.html` directly in a browser (`open index.html` on macOS). For a local server: `python3 -m http.server` and visit http://localhost:8000.
