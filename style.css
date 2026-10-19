@@ -90,15 +90,15 @@ h1 {
   transition: background 0.15s, transform 0.1s;
 }
 
-.cell:hover:not(:disabled) {
+.cell:hover:not([aria-disabled="true"]) {
   background: var(--cell-hover);
 }
 
-.cell:active:not(:disabled) {
+.cell:active:not([aria-disabled="true"]) {
   transform: scale(0.96);
 }
 
-.cell:disabled {
+.cell[aria-disabled="true"] {
   cursor: default;
 }
 

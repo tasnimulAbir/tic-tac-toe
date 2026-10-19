@@ -16,10 +16,11 @@ Open `index.html` directly in a browser (`open index.html` on macOS). For a loca
 - `script.js` keeps all state in module-level variables: `board` (an array of 9 entries, each `"X"`, `"O"`, or `null`), `currentPlayer`, `gameOver`, and `scores` (keys `X`, `O`, `draw`).
   - `WIN_LINES` lists the 8 winning index triples.
   - `handleCellClick` places a mark, then checks for a win or a draw, or switches turns.
-  - `endGame` updates the score and disables all cells.
+  - `endGame` updates the score and marks all cells `aria-disabled`.
   - `startRound` clears the board but keeps scores.
-  - `resetScores` zeroes the scores and starts a new round.
+  - `resetScores` zeroes the scores and leaves the current round in play.
   - Scores are kept in memory only and are lost on page reload.
+- Accessibility: played cells and cells in a finished game get `aria-disabled="true"` rather than `disabled`, so they stay focusable. `handleCellClick` ignores clicks on them. Each cell's `aria-label` ("Row 1, column 1, X") is set by `cellLabel` after every move and in `startRound`. `#status` is a live region (`role="status"`).
 - CSS classes set by JS:
   - `.x` / `.o` color each mark.
   - `.win` highlights the winning line.

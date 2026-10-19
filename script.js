@@ -25,6 +25,12 @@ function getWinningLine() {
   );
 }
 
+function cellLabel(index) {
+  const row = Math.floor(index / 3) + 1;
+  const col = (index % 3) + 1;
+  return `Row ${row}, column ${col}, ${board[index] || "empty"}`;
+}
+
 function handleCellClick(event) {
   const index = Number(event.currentTarget.dataset.index);
   if (gameOver || board[index]) return;
@@ -33,7 +39,8 @@ function handleCellClick(event) {
   const cell = cells[index];
   cell.textContent = currentPlayer;
   cell.classList.add(currentPlayer.toLowerCase());
-  cell.disabled = true;
+  cell.setAttribute("aria-label", cellLabel(index));
+  cell.setAttribute("aria-disabled", "true");
 
   const winLine = getWinningLine();
   if (winLine) {
@@ -52,7 +59,7 @@ function endGame(message, result) {
   statusEl.textContent = message;
   scores[result]++;
   renderScores();
-  cells.forEach((cell) => (cell.disabled = true));
+  cells.forEach((cell) => cell.setAttribute("aria-disabled", "true"));
 }
 
 function renderScores() {
@@ -66,17 +73,17 @@ function startRound() {
   currentPlayer = "X";
   gameOver = false;
   statusEl.textContent = "Player X's turn";
-  cells.forEach((cell) => {
+  cells.forEach((cell, index) => {
     cell.textContent = "";
     cell.className = "cell";
-    cell.disabled = false;
+    cell.setAttribute("aria-label", cellLabel(index));
+    cell.removeAttribute("aria-disabled");
   });
 }
 
 function resetScores() {
   Object.keys(scores).forEach((key) => (scores[key] = 0));
   renderScores();
-  startRound();
 }
 
 cells.forEach((cell) => cell.addEventListener("click", handleCellClick));
