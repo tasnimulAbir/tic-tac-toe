@@ -7,34 +7,128 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main class="game">
-    <h1>Tic Tac Toe</h1>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">#</span>
+        <h1>Tic Tac Toe</h1>
+      </div>
+      <button id="theme-toggle" class="icon-btn" type="button" aria-label="Switch to dark theme">
+        <span aria-hidden="true">◐</span>
+      </button>
+    </header>
 
-    <div class="scoreboard">
-      <div class="score x">X <span id="score-x">0</span></div>
-      <div class="score draw">Draws <span id="score-draw">0</span></div>
-      <div class="score o">O <span id="score-o">0</span></div>
-    </div>
+    <main class="layout">
+      <section class="panel game" aria-labelledby="game-title">
+        <h2 id="game-title" class="visually-hidden">Game</h2>
 
-    <p id="status" class="status" role="status" aria-atomic="true">Player X's turn</p>
+        <div class="players">
+          <div id="player-x" class="player x active">
+            <span class="player-mark">X</span>
+            <span class="player-label">Player X</span>
+          </div>
+          <span class="vs" aria-hidden="true">vs</span>
+          <div id="player-o" class="player o">
+            <span class="player-mark">O</span>
+            <span class="player-label">Player O</span>
+          </div>
+        </div>
 
-    <div id="board" class="board">
-      <button class="cell" data-index="0" aria-label="Row 1, column 1, empty"></button>
-      <button class="cell" data-index="1" aria-label="Row 1, column 2, empty"></button>
-      <button class="cell" data-index="2" aria-label="Row 1, column 3, empty"></button>
-      <button class="cell" data-index="3" aria-label="Row 2, column 1, empty"></button>
-      <button class="cell" data-index="4" aria-label="Row 2, column 2, empty"></button>
-      <button class="cell" data-index="5" aria-label="Row 2, column 3, empty"></button>
-      <button class="cell" data-index="6" aria-label="Row 3, column 1, empty"></button>
-      <button class="cell" data-index="7" aria-label="Row 3, column 2, empty"></button>
-      <button class="cell" data-index="8" aria-label="Row 3, column 3, empty"></button>
-    </div>
+        <p id="status" class="status" role="status" aria-atomic="true">Player X's turn</p>
 
-    <div class="controls">
-      <button id="restart" class="btn">New Round</button>
-      <button id="reset-scores" class="btn secondary">Reset Scores</button>
-    </div>
-  </main>
+        <div id="board" class="board">
+          <button class="cell" data-index="0" aria-label="Row 1, column 1, empty"></button>
+          <button class="cell" data-index="1" aria-label="Row 1, column 2, empty"></button>
+          <button class="cell" data-index="2" aria-label="Row 1, column 3, empty"></button>
+          <button class="cell" data-index="3" aria-label="Row 2, column 1, empty"></button>
+          <button class="cell" data-index="4" aria-label="Row 2, column 2, empty"></button>
+          <button class="cell" data-index="5" aria-label="Row 2, column 3, empty"></button>
+          <button class="cell" data-index="6" aria-label="Row 3, column 1, empty"></button>
+          <button class="cell" data-index="7" aria-label="Row 3, column 2, empty"></button>
+          <button class="cell" data-index="8" aria-label="Row 3, column 3, empty"></button>
+        </div>
+
+        <div class="controls">
+          <button id="restart" class="btn primary" type="button">New Round</button>
+        </div>
+      </section>
+
+      <section class="panel dashboard" aria-labelledby="dash-title">
+        <div class="dash-head">
+          <div>
+            <h2 id="dash-title">Dashboard</h2>
+            <p class="subtle">Saved in this browser</p>
+          </div>
+          <button id="reset-scores" class="btn ghost" type="button">Clear stats</button>
+        </div>
+
+        <div class="kpis">
+          <div class="kpi">
+            <span class="kpi-label">Games</span>
+            <span id="kpi-games" class="kpi-value">0</span>
+            <span id="kpi-games-sub" class="kpi-sub">No games yet</span>
+          </div>
+          <div class="kpi">
+            <span class="kpi-label"><i class="dot x" aria-hidden="true"></i>X wins</span>
+            <span id="score-x" class="kpi-value">0</span>
+            <span id="score-x-sub" class="kpi-sub">0%</span>
+          </div>
+          <div class="kpi">
+            <span class="kpi-label"><i class="dot o" aria-hidden="true"></i>O wins</span>
+            <span id="score-o" class="kpi-value">0</span>
+            <span id="score-o-sub" class="kpi-sub">0%</span>
+          </div>
+          <div class="kpi">
+            <span class="kpi-label"><i class="dot draw" aria-hidden="true"></i>Draws</span>
+            <span id="score-draw" class="kpi-value">0</span>
+            <span id="score-draw-sub" class="kpi-sub">0%</span>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <h3>Results split</h3>
+          </div>
+          <div id="split-bar" class="split-bar" role="img" aria-label="No games played yet"></div>
+          <ul class="legend">
+            <li><i class="dot x" aria-hidden="true"></i>X <span id="legend-x">0%</span></li>
+            <li><i class="dot draw" aria-hidden="true"></i>Draw <span id="legend-draw">0%</span></li>
+            <li><i class="dot o" aria-hidden="true"></i>O <span id="legend-o">0%</span></li>
+          </ul>
+        </div>
+
+        <div class="card-row compact">
+          <div class="card stat">
+            <h3>Current streak</h3>
+            <p id="streak-current" class="stat-value">–</p>
+            <p id="streak-best" class="kpi-sub">Best: –</p>
+          </div>
+          <div class="card stat">
+            <h3>Avg. moves</h3>
+            <p id="avg-moves" class="stat-value">–</p>
+            <p id="avg-moves-sub" class="kpi-sub">per game</p>
+          </div>
+        </div>
+
+        <div class="card-row">
+          <div class="card">
+            <div class="card-head">
+              <h3>Winning squares</h3>
+            </div>
+            <div id="heatmap" class="heatmap" role="group" aria-label="Times each square was part of a winning line"></div>
+          </div>
+          <div class="card">
+            <div class="card-head">
+              <h3>Recent games</h3>
+            </div>
+            <ol id="recent" class="recent"></ol>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="tooltip" class="tooltip" role="tooltip" hidden></div>
 
   <script src="script.js"></script>
 </body>
